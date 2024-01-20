@@ -1,0 +1,71 @@
+class Livro:
+    def __init__(self,titulo, autor, ID, status_de_empréstimo):
+        self.titulo = titulo
+        self.autor = autor
+        self.ID = ID
+        self.status = status_de_empréstimo
+
+class Membro:
+    def __init__(self, nome, n_de_membro, hist_livros_emprestados):
+        self.nome = nome
+        self.numero = n_de_membro
+        self.historico = hist_livros_emprestados
+
+class Biblioteca:
+    def __init__(self, nome,num_de_membro, historico_livros_emprestados):
+        self.nome = nome
+        self.num = num_de_membro
+        self.historico = historico_livros_emprestados
+
+    def adicionar_livros(self, livro):
+        self.catalogo.append(livro)
+
+    def adicionar_membro(self, membro):
+        self.membros.append(membro)
+
+    def emprestar_livro(self, membro, livro):
+        if livro.emprestado:
+            print('Livro indisponível')
+
+        else:
+            livro.emprestado = True
+            membro.livro_emprestados.append(livro)
+            print('Livro emprestado com sucesso!')
+
+    def devolver_livro(self, membro, livro):
+        if livro in membro.livro_emprestados:
+            livro.status = 'Disponível'
+            membro.livros_emprestados.remove(livro)
+        else:
+            print('Livro não emprestado por este membro!')
+    def buscar_livro(self, titulo=None, autor=None, id=None):
+        if titulo:
+            return [livro for livro in self.catalogo
+                    if livro.titulo == titulo]
+        elif autor:
+            return [autor for autor in self.catalogo
+                    if autor.livro == autor]
+        elif id:
+            return [id for id in self.catalogo
+                    if id.livro == id]
+
+import tkinter as tk
+
+class BibliotecaApp:
+    def __init__(self, biblioteca):
+        self.biblioteca = biblioteca
+        self.window = tk.Tk()
+        self.window.title("Gerenciamento de Biblioteca")
+        self.frame = tk.Frame(self.window)
+        self.frame.pack()
+        self.button_adicionar_livro = tk.Button(self.frame, text="Adicionar Livro", command=self.adicionar_livro)
+        self.button_adicionar_livro.pack(side=tk.LEFT)
+        self.button_adicionar_membro = tk.Button(self.frame, text="Adicionar Membro", command=self.adicionar_membro)
+        self.button_adicionar_membro.pack(side=tk.LEFT)
+        self.button_pesquisar_livro = tk.Button(self.frame, text="Pesquisar Livro", command=self.pesquisar_livro)
+        self.button_pesquisar_livro.pack(side=tk.LEFT)
+        self.button_emprestar_livro = tk.Button(self.frame, text="Emprestar Livro", command=self.emprestar_livro)
+        self.button_emprestar_livro.pack(side=tk.LEFT)
+        self.button_devolver_livro = tk.Button(self.frame, text="Devolver Livro", command=self.devolver_livro)
+        self.button_devolver_livro.pack(side=tk.LEFT)
+        self.window.mainloop()
