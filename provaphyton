@@ -16,6 +16,8 @@ class Biblioteca:
         self.nome = nome
         self.num = num_de_membro
         self.historico = historico_livros_emprestados
+        self.catalogo = []
+        self.membros = []
 
     def adicionar_livros(self, livro):
         self.catalogo.append(livro)
@@ -49,8 +51,9 @@ class Biblioteca:
             return [id for id in self.catalogo
                     if id.livro == id]
 
-import tkinter as tk
 
+import tkinter as tk
+from main import Biblioteca
 class BibliotecaApp:
     def __init__(self, biblioteca):
         self.biblioteca = biblioteca
@@ -69,3 +72,4 @@ class BibliotecaApp:
         self.button_devolver_livro = tk.Button(self.frame, text="Devolver Livro", command=self.devolver_livro)
         self.button_devolver_livro.pack(side=tk.LEFT)
         self.window.mainloop()
+biblioteca = Biblioteca('Infinity', 20, 120)
